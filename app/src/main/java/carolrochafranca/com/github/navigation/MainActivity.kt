@@ -11,7 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import carolrochafranca.com.github.navigation.screens.LoginScreen
+import carolrochafranca.com.github.navigation.screens.MenuScreen
+import carolrochafranca.com.github.navigation.screens.PedidosScreen
+import carolrochafranca.com.github.navigation.screens.PerfilScreen
 import carolrochafranca.com.github.navigation.ui.theme.NavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,10 +27,28 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavigationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(modifier = Modifier.padding(innerPadding))
+                   val navController = rememberNavController()
 
+                    NavHost(
+                        navController = navController,
+                        startDestination = "login",
+                    ) {
+                        composable(route = "login") {
+                            LoginScreen(modifier = Modifier.padding(innerPadding))
+                        }
+                        composable(route = "menu") {
+                            MenuScreen(modifier = Modifier.padding(innerPadding))
+                        }
+                        composable(route = "pedidos") {
+                            PedidosScreen(modifier = Modifier.padding(innerPadding))
+                        }
+                        composable(route = "perfil") {
+                            PerfilScreen(modifier = Modifier.padding(innerPadding))
+                        }
+                    }
                 }
             }
         }
-    }
-}
+
+                }
+            }
